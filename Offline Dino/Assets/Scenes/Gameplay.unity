@@ -559,6 +559,8 @@ MonoBehaviour:
   initialGameSpeed: 5
   gameSpeedIncrease: 0.1
   gameOverText: {fileID: 175217120}
+  scoreText: {fileID: 2021136470}
+  highScoreText: {fileID: 31587310}
   retryButton: {fileID: 2098293859}
 --- !u!4 &412544077
 Transform:

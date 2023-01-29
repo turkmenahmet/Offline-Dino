@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         }
 
         gameSpeed = initialGameSpeed;
+        score = 0f;
         enabled = true;
 
         player.gameObject.SetActive(true);
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
         retryButton.gameObject.SetActive(false);
 
+        UpdateHighScore();
     }
 
     private void Update(){
@@ -69,5 +71,18 @@ public class GameManager : MonoBehaviour
 
         gameOverText.gameObject.SetActive(true);
         retryButton.gameObject.SetActive(true);
+
+        UpdateHighScore();
+    }
+
+    private void UpdateHighScore(){
+        float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
+        
+        if(score > hiscore){
+            hiscore = score;
+            PlayerPrefs.SetFloat("hiscore", hiscore);
+        }
+
+        highScoreText.text = Mathf.FloorToInt(hiscore).ToString("D5");
     }
 }
