@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set;}
 
+    private Player player;
+    private Spawner spawner;
     private void Awake(){
         if(Instance == null)
             Instance = this;
@@ -20,14 +22,34 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
+        player = FindObjectOfType<Player>();
+        spawner = FindObjectOfType<Spawner>();
         NewGame();
     }
 
     private void NewGame(){
+        
+        Obstacles[] obstacles = FindObjectsOfType<Obstacles>();
+        foreach(var obstacle in obstacles){
+            Destroy(obstacle.gameObject);
+        }
+
         gameSpeed = initialGameSpeed;
+        enabled = true;
+
+        player.gameObject.SetActive(true);
+        spawner.gameObject.SetActive(true);
     }
 
     private void Update(){
         gameSpeed += gameSpeedIncrease * Time.deltaTime;
+    }
+
+    public void GameOver(){
+        gameSpeed = 0f;
+        enabled = false;
+
+        player.gameObject.SetActive(false);
+        spawner.gameObject.SetActive(false);
     }
 }
